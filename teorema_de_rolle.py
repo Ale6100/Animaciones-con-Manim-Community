@@ -10,13 +10,13 @@ class rolle(Scene):
         self.play(Write(titulo), run_time = 1)
         self.wait(tiempo_entre_videos-1)
 
-        ######################################################################? Agrega el enunciado
+        ##########? Agrega el enunciado
 
         enunciado = Tex('Si $f:[a, b] \\rightarrow \mathbb{R}$ es continua en $[a, b]$, derivable en $(a, b)$, y además $f(a) = f(b)$, entonces $\\exists~c \\in (a, b)$ tal que $f\'(c) = 0$').scale(0.75)
         self.play(Transform(titulo, enunciado), run_time = 1)
         self.wait(tiempo_entre_videos)
 
-        ######################################################################? Agrega el inicio de la demostración y un gráfico
+        ##########? Agrega el inicio de la demostración y un gráfico
 
         demostracion = Tex('Si $f$ es constante, entonces $f\'(x) = 0 ~\\forall~ x \\in (a, b)$, por lo tanto $c$ puede ser cualquier valor en $(a, b)$').scale(0.75).move_to(np.array([0, 2, 0]))
 
@@ -51,7 +51,7 @@ class rolle(Scene):
         self.play(Transform(titulo, demostracion), Create(plot), Create(lineas), Create(puntos), Create(labels), run_time = 2)
         self.wait(tiempo_entre_videos-1)
 
-        ######################################################################? Reemplaza el inicio de la demostración por otro texto, transforma un gráfico en otro y crea uno nuevo
+        ##########? Reemplaza el inicio de la demostración por otro texto, transforma un gráfico en otro y crea uno nuevo
 
         demostracion2 = Tex('Si $f$ no es constante, entonces como $f$ es continua en un compacto $[a, b]$, por el teorema de Weierstrass sabemos que $f$ tiene máximo y mínimo en dicho compacto, y como $f(a) = f(b)$, por lo menos un extremo está en $(a, b)$. Observamos que se cumplen las hipótesis del Teorema de Fermat, por lo tanto $\\exists~c \\in (a, b)$ tal que $f\'(c) = 0$').move_to(np.array([0, 2.25, 0])).scale(0.8)
 
@@ -114,7 +114,7 @@ class rolle(Scene):
         self.play(Transform(titulo, demostracion2), Transform(plot, plot2), Transform(lineas, lineas2), Transform(puntos, puntos2), Transform(labels, labels2), Create(plot3), Create(lineas3), Create(puntos3), Create(labels3), run_time = 2)
         self.wait(11)
 
-        ######################################################################? Borra todo y pone un texto final
+        ##########? Borra todo y pone un texto final
 
         self.clear()
         nuevo_texto = Tex('Acabamos de probar que $\\exists~c \\in (a, b)$ tal que $f\'(c) = 0$ para $f=cte$ como para $f \\ne cte$, por lo tanto damos por demostrado el teorema').move_to(np.array([0, 0.1, 0])).scale(0.75)

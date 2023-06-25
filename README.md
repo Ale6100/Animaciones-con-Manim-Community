@@ -36,7 +36,7 @@ Donde:
 Por ejemplo en la carpeta de este proyecto puedes ejecutar:
 
 ```
-manim -pql teorema_de_rolle.py rolle
+manim -pql teorema_de_lagrange_en_r.py lagrange_en_r
 ```
 
 otros comandos son:
