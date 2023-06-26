@@ -43,7 +43,7 @@ otros comandos son:
 
 * `f` se abrirá la carpeta contenedora del video generado
 
-* `--format=[png|gif|mp4|webm|mov]` formato del video generado
+* `--format=[png|gif|mp4|webm|mov]` formato del archivo generado
 
 Click [aquí](https://docs.manim.community/en/stable/guides/configuration.html) para más información.
 
