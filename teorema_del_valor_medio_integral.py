@@ -58,7 +58,7 @@ class tvmi(Scene):
 
         ##########?
 
-        self.play(F_copia.animate.move_to(flecha.get_center() + DOWN + RIGHT + np.array([-0.05, 0.01, 0])), FadeOut(entonces, reverse=False))
+        self.play(F_copia.animate.move_to(flecha.get_center() + DOWN + RIGHT + np.array([-0.05, 0.01, 0])), Unwrite(entonces))
         self.wait(tiempo_entre_videos-3)
 
         ##########?
@@ -74,7 +74,7 @@ class tvmi(Scene):
         ##########?
 
         pero2 = Tex('pero $F\'(c) = f(c)$ por ser $F$ primitiva de $f$').move_to(np.array([2.09, 3, 0])).scale(0.8)
-        self.play(Write(pero2), FadeOut(copia2))
+        self.play(Write(pero2), Uncreate(copia2))
         self.wait(tiempo_entre_videos-2)
 
         ##########?

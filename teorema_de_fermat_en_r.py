@@ -168,7 +168,7 @@ class fermat_en_r(Scene):
 
         recordatorio1 = Tex('Pero recordemos que $\\lim\\limits_{t \\to 0} \\frac{f(P+t) - f(P)}{t} = f\'(P)$').move_to(pos_aclaracion).scale(0.75)
         recordatorio2 = Tex('por lo tanto:').next_to(recordatorio1, np.array([0, -0.1, 0])).scale(0.75)
-        self.play(FadeOut(copia2), Transform(aclaracion2, recordatorio1), Transform(aclaracion1, recordatorio2))
+        self.play(Unwrite(copia2), Transform(aclaracion2, recordatorio1), Transform(aclaracion1, recordatorio2))
         self.wait(tiempo_entre_videos-4)
 
         ##########? Agrega una igualdad al lado del último límite creado
