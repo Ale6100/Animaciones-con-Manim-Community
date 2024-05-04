@@ -2,9 +2,9 @@
 
 Bienvenido! En este repositorio dejaré el código base de varias animaciones matemáticas hechas con [Manim Community](https://docs.manim.community/en/stable/index.html).
 
-Me falta aprender mucho de esta librería pero poco a poco voy a ir guardando acá algunos códigos.
+Me falta aprender mucho de esta librería pero poco a poco voy a ir guardando acá algunas animaciones que se me vayan ocurriendo.
 
-Es importante aclarar que es un módulo en desarrollo, la versión actual es la 0.17.3
+Es importante aclarar que es un módulo en desarrollo, la versión actual es la 0.18.1
 
 ## Comenzando 🚀
 
@@ -14,12 +14,13 @@ Descarga el archivo comprimido _zip_ desde el botón "code" o hacer click [aquí
 
 ### Pre-requisitos 📋
 
-Necesitas tener previamente descargado e instalado [Manim Community](https://docs.manim.community/en/stable/installation/windows.html). Tal como se especifica en su documentación, se recomienda hacer la instalación completa con [chocolatey](https://chocolatey.org/) ya que para ejecutar estos códigos se necesitan otras dependencias como [ffmpeg](https://ffmpeg.org/) y [LaTeX](https://es.wikipedia.org/wiki/LaTeX).
+Necesitas tener previamente descargado e instalado [Manim Community](https://docs.manim.community/en/stable/installation/windows.html). Tal como se especifica en su documentación, se recomienda hacer la instalación completa con [chocolatey](https://chocolatey.org/) ya que para ejecutar estos códigos se necesitan otras dependencias como [ffmpeg](https://ffmpeg.org/) y [LaTeX](https://es.wikipedia.org/wiki/LaTeX), que son más fáciles de instalar de este modo.
 
 ## Desarrollo 👷
+
 Ejecuta el código que desees con el comando
 
-```
+```bash
 manim -pql X.py Y
 ```
 
@@ -35,7 +36,7 @@ Donde:
 
 Por ejemplo en la carpeta de este proyecto puedes ejecutar:
 
-```
+```bash
 manim -pql teorema_de_lagrange_en_r.py lagrange_en_r
 ```
 
@@ -54,4 +55,7 @@ Click [aquí](https://docs.manim.community/en/stable/guides/configuration.html) 
 
 ## Autor ✒️
 
-* **Alejandro Portaluppi** - [LinkedIn](https://www.linkedin.com/in/alejandro-portaluppi/)
+| ![Alejandro Portaluppi](https://avatars.githubusercontent.com/u/107259761?size=50)
+|:-:
+| **Alejandro Portaluppi**
+|[![GitHub](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white)](https://github.com/Ale6100) [![LinkedIn](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alejandro-portaluppi)
