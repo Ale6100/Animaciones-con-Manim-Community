@@ -1,4 +1,4 @@
-from manim import Scene, NumberPlane, Tex, Write, Transform, Unwrite, Circle, Create, Dot, FadeIn, FadeOut, Ellipse, SurroundingRectangle, Uncreate
+from manim import Scene, NumberPlane, Tex, Write, Transform, Unwrite, Circle, Create, Dot, FadeIn, FadeOut, Ellipse, SurroundingRectangle, Uncreate, Rectangle, Intersection, Union
 import numpy as np
 
 class conjuntos_numericos(Scene):
@@ -14,7 +14,7 @@ class conjuntos_numericos(Scene):
 
         ##########? #Agrega el enunciado
 
-        enunciado = Tex('Definición informal: Un conjunto es una coleccion de objetos, llamados elementos, que tiene la propiedad que dado un objeto cualquiera, se puede decidir si ese objeto es un elemento del conjunto o no.').move_to(np.array([0, 2.01, 0])).scale(0.8)
+        enunciado = Tex('Definición informal: Un conjunto es una agrupación de objetos, llamados elementos, donde cada objeto se puede determinar fácilmente si pertenece o no al conjunto.').move_to(np.array([0, 2.01, 0])).scale(0.8)
         self.play(Transform(titulo, enunciado), run_time = 1)
         self.wait(tiempo_entre_videos)
 
@@ -37,7 +37,7 @@ class conjuntos_numericos(Scene):
 
         A2 = Tex('$A2 = \{8, 34, 4, 3, 5\}$').move_to(np.array([0, -1, 0]))
 
-        A3 = Tex('$A2 = \{3, 4, 5, 8, 34, 5, 3\}$').move_to(np.array([0, -2, 0]))
+        A3 = Tex('$A3 = \{3, 4, 5, 8, 34, 5, 3\}$').move_to(np.array([0, -2, 0]))
 
         a_iguales = Tex('$A = A2 = A3$').move_to(np.array([0, -3, 0]))
 
@@ -46,7 +46,7 @@ class conjuntos_numericos(Scene):
 
         ##########? Mostrar que el orden no importa
 
-        texto_pertenencia = Tex('Se dice que cada elemento $a$ de un conjunto $A$ pertenece a $A$ y se nota $a \in A$. Si un elemento $b$ no pertenece al conjunto $A$, se nota $b \\notin A$').move_to(np.array([0, 2.01, 0])).scale(0.8)
+        texto_pertenencia = Tex('Se dice que si $a$ pertenece al conjunto $A$ se nota $a \in A$. En cambio, $a$ no pertenece a $A$ se nota $a \\notin A$').move_to(np.array([0, 2.01, 0])).scale(0.8)
 
         ocho_pertenece = Tex('$8 \in A$').move_to(np.array([0, -1, 0]))
 
@@ -58,6 +58,8 @@ class conjuntos_numericos(Scene):
         ##########? Diagramas de Venn
 
         diagrama_venn = Tex('Los conjuntos se suelen representar gráficamente por los llamados diagramas de Venn: simplemente se utiliza una circunferencia para representar el conjunto, y eventualmente en el interior sus elementos.').move_to(np.array([0, 2.5, 0])).scale(0.8)
+
+        diagrama_venn[0][57:72].set_color('RED')
 
         diagrama = Circle(2, 'BLUE').move_to(np.array([-0, -0.55, 0]))
 
@@ -151,7 +153,7 @@ class conjuntos_numericos(Scene):
 
         diagrama_b_futura = diagrama.copy().set_color('YELLOW')
 
-        nuevo_b2 = Tex('$B = \{3, 4, 5\}$').move_to(np.array([0, -1, 0])).set_color('YELLOW')
+        nuevo_b2 = Tex('$B = \{3, 4, 5\}$').move_to(np.array([0.1, -1, 0])).set_color('YELLOW')
 
         self.play(Write(en_cambio), Transform(diagrama_b, diagrama_b_futura), Transform(B, nuevo_b2), Uncreate(punto_seis), Unwrite(seis), Unwrite(recorte2), Unwrite(inclusion_formal), Unwrite(b_no_incluido_en_a), Uncreate(box_b_no_incluido_en_a), run_time = 1)
         self.wait(tiempo_entre_videos)
@@ -162,10 +164,106 @@ class conjuntos_numericos(Scene):
 
         remarcar3 = recorte3.copy().set_color('RED')
 
-        b_igual_a_a = Tex('$\\Rightarrow B = A$').move_to(np.array([3.6, 0, 0]))
+        b_igual_a_a = Tex('$\\Rightarrow B = A$').move_to(np.array([3.5, 0, 0]))
         box_b_igual_a_a = SurroundingRectangle(b_igual_a_a, buff = 0.1)
 
-        self.play(Write(b_no_incluido_en_a), Create(box_b_no_incluido_en_a), Transform(recorte3, remarcar3), Create(box_b_igual_a_a), Write(b_igual_a_a), run_time = 1)
+        self.play(Transform(recorte3, remarcar3), Create(box_b_igual_a_a), Write(b_igual_a_a), run_time = 1)
         self.wait(tiempo_entre_videos)
 
-        ##########? Definir "Conjunto referencial U" u mostrar distintas operaciones entre A y B (complemento de A, unión, intersección, diferencia y diferencia simétrica )
+        ##########? Definir Conjunto referencial U
+
+        conjunto_referencial = Tex('En lo que sigue vamos a definir al conjunto $U$ como un conjunto referencial (o de referencia), es decir, contendrá a todos los elementos de los conjuntos que vamos a considerar.').move_to(np.array([0, 3, 0])).scale(0.8)
+
+        diagrama_u = Rectangle(width=5, height=5).move_to(np.array([-3.5, -0.52, 0])).set_color('WHITE')
+
+        u = Tex('$U$').move_to(diagrama_u.get_center() + np.array([-3, 0, 0])).set_color('WHITE')
+        u_igual_a = Tex('$U = \{3, 4, 5, 7\}$').move_to(np.array([3.5, 0, 0])).set_color('WHITE')
+
+        punto_siete = Dot().set_color('PURPLE').move_to(diagrama_u.get_center() + np.array([-2, -1.02, 0]))
+        siete = Tex('$7$').set_color('PURPLE').add_updater(lambda v: v.move_to(punto_siete.get_center() + np.array([0, -0.33, 0])))
+
+        self.play(Write(conjunto_referencial), nuevo_a.animate.move_to(np.array([2, -1, 0])), B.animate.set_opacity(0), Create(diagrama_u), Write(u), Create(punto_siete), Write(siete), Write(u_igual_a), diagrama.animate.move_to(np.array([-3.5, -0.5, 0])), Uncreate(diagrama_b), Unwrite(en_cambio), Unwrite(recorte3), Uncreate(box_b_igual_a_a), Unwrite(b_igual_a_a), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Complemento de A
+
+        complemento_a = Tex('Complemento de A').move_to(np.array([0, 3, 0]))
+
+        definicion_c = Tex('$A^c = \{x \in U \mid x \\notin A\}$').move_to(np.array([3.5, 1, 0]))
+
+        ac = Tex('$A^c = \{7\}$').move_to(np.array([5, -1, 0])).set_color('YELLOW')
+
+        diagrama_copia = diagrama.copy().set_fill('BLUE', opacity=1)
+
+        self.play(Transform(conjunto_referencial, complemento_a), Write(definicion_c), Write(ac), diagrama_u.animate.set_fill('YELLOW', opacity=1).set_stroke(color='WHITE', width=10), Create(diagrama_copia), Uncreate(diagrama), Uncreate(punto_tres), Uncreate(punto_cuatro), Uncreate(punto_cinco), Uncreate(punto_siete), Unwrite(a_diagrama), Unwrite(tres), Unwrite(cuatro), Unwrite(cinco), Unwrite(siete), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Unión
+
+        union = Tex('Unión').move_to(np.array([0, 3, 0])).scale(1.1)
+
+        definicion_u = Tex('$A \\cup B = \{x \in U \mid x \\in A \\text{ o } x \\in B\}$').move_to(np.array([3.5, 1, 0]))
+
+        otro_b = Tex('$B = \{7, 5\}$').move_to(np.array([5, -1, 0])).set_color('GREEN')
+
+        union_texto = Tex('$A \\cup B = \{3, 4, 5, 7\}$').move_to(np.array([3.5, -2, 0])).set_color('RED')
+
+        u_igual_a2 = Tex('$U = \{3, 4, 5, 7, 10\}$').move_to(np.array([3.5, 0, 0])).set_color('WHITE')
+
+        circulo_a = Circle(1.33, 'BLUE').move_to(np.array([-4.33, -0.5, 0])).set_fill('RED', opacity=1).set_stroke(color='BLUE', width=10)
+
+        circulo_b = Circle(1.33, 'GREEN').move_to(np.array([-2.66, -0.5, 0])).set_fill('RED', opacity=1).set_stroke(color='GREEN', width=10)
+
+        borde_a = Circle(1.33, 'BLUE').move_to(circulo_a.get_center()).set_stroke(color='BLUE', width=10)
+
+        self.play(Transform(conjunto_referencial, union), Transform(definicion_c, definicion_u), Write(otro_b), Transform(ac, union_texto), Transform(u_igual_a, u_igual_a2), Transform(diagrama_copia, circulo_a), Create(circulo_b), diagrama_u.animate.set_fill('YELLOW', opacity=0), Create(borde_a), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Intersección
+
+        interseccion = Tex('Intersección').move_to(np.array([0, 3, 0])).scale(1.1)
+
+        definicion_i = Tex('$A \\cap B = \{x \in U \mid x \\in A \\text{ y } x \\in B\}$').move_to(np.array([3.5, 1, 0]))
+
+        interseccion_texto = Tex('$A \\cap B = \{5\}$').move_to(np.array([3.5, -2, 0])).set_color('RED')
+
+        diagrama_i = Intersection(diagrama_copia, circulo_b).set_fill('RED', opacity=1).set_stroke(color='BLACK', width=0)
+
+        borde_b = Circle(1.33, 'GREEN').move_to(np.array([-2.66, -0.5, 0])).set_stroke(color='GREEN', width=10)
+
+        self.play(Transform(conjunto_referencial, interseccion), Transform(definicion_c, definicion_i), Transform(ac, interseccion_texto), circulo_b.animate.set_fill('GREEN', opacity=1), diagrama_copia.animate.set_fill('BLUE', opacity=1), Create(diagrama_i), Create(borde_b), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Diferencia
+
+        diferencia = Tex('Diferencia').move_to(np.array([0, 3, 0])).scale(1.1)
+
+        definicion_d = Tex('$A - B = \{x \in A \mid x \\notin B\}$').move_to(np.array([3.5, 1, 0]))
+
+        diferencia_texto = Tex('$A - B = \{3, 4\}$').move_to(np.array([3.5, -2, 0])).set_color('RED')
+
+        borde_a2 = Circle(1.33, 'BLUE').move_to(circulo_a.get_center()).set_stroke(color='BLUE', width=10)
+
+        self.play(Transform(conjunto_referencial, diferencia), Transform(definicion_c, definicion_d), Transform(ac, diferencia_texto), diagrama_copia.animate.set_fill('RED', opacity=1), Transform(borde_a, borde_a2), Uncreate(diagrama_i), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Diferencia simétrica
+
+        diferencia_simetrica = Tex('Diferencia simétrica').move_to(np.array([0, 3, 0])).scale(1.1)
+
+        definicion_ds = Tex('$A \\triangle B = \{ x \in U \mid (x \in A$ y $x \\notin B$) o $(x \in B$ y $x \\notin A) \}$').move_to(np.array([3.5, 1, 0])).scale(0.66)
+
+        diferencia_simetrica_texto = Tex('$A \\triangle B = \{3, 4, 7\}$').move_to(np.array([3.5, -2, 0])).set_color('RED')
+
+        diagrama_union = Union(diagrama_copia, circulo_b).set_fill('RED', opacity=1).set_stroke(color='BLACK', width=0)
+
+        diagrama_i2 = Intersection(diagrama_copia, circulo_b).set_fill('BLACK', opacity=1).set_stroke(color='BLACK', width=0)
+
+        borde_a3 = Circle(1.33, 'BLUE').move_to(circulo_a.get_center()).set_stroke(color='BLUE', width=10)
+
+        borde_b2 = Circle(1.33, 'GREEN').move_to(np.array([-2.66, -0.5, 0])).set_stroke(color='GREEN', width=10)
+
+        self.play(Transform(conjunto_referencial, diferencia_simetrica), Transform(definicion_c, definicion_ds), Transform(ac, diferencia_simetrica_texto), diagrama_copia.animate.set_fill('RED', opacity=0), Create(diagrama_union), circulo_b.animate.set_fill('BLACK', opacity=0), Create(diagrama_i2), Uncreate(borde_a), Create(borde_a3), Uncreate(borde_b), Create(borde_b2), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Fin
