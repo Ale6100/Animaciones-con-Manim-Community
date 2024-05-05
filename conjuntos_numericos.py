@@ -1,12 +1,12 @@
-from manim import Scene, NumberPlane, Tex, Write, Transform, Unwrite, Circle, Create, Dot, FadeIn, FadeOut, Ellipse, SurroundingRectangle
+from manim import Scene, NumberPlane, Tex, Write, Transform, Unwrite, Circle, Create, Dot, FadeIn, FadeOut, Ellipse, SurroundingRectangle, Uncreate
 import numpy as np
 
 class conjuntos_numericos(Scene):
     def construct(self):
         tiempo_entre_videos = 3
 
-        grid = NumberPlane().set_opacity(0.33)
-        self.add(grid)
+        # grid = NumberPlane().set_opacity(0.33)
+        # self.add(grid)
 
         titulo = Tex('Conjuntos numéricos').scale(1.33)
         self.play(Write(titulo), run_time = 1)
@@ -68,11 +68,11 @@ class conjuntos_numericos(Scene):
         punto_tres = Dot().set_color('RED').add_updater(lambda v: v.move_to(diagrama.get_center() + np.array([-0.75, 0.75, 0])))
         tres = Tex('$3$').set_color('RED').add_updater(lambda v: v.move_to(punto_tres.get_center() + np.array([-0.33, 0, 0])))
 
-        punto_cuatro = Dot().set_color('ORANGE').add_updater(lambda v: v.move_to(diagrama.get_center() + np.array([0.75, 0.75, 0])))
-        cuatro = Tex('$4$').set_color('ORANGE').add_updater(lambda v: v.move_to(punto_cuatro.get_center() + np.array([0.33, 0, 0])))
+        punto_cuatro = Dot().set_color('GOLD').add_updater(lambda v: v.move_to(diagrama.get_center() + np.array([0.75, 0.75, 0])))
+        cuatro = Tex('$4$').set_color('GOLD').add_updater(lambda v: v.move_to(punto_cuatro.get_center() + np.array([0.33, 0, 0])))
 
         punto_cinco = Dot().set_color('GREEN').add_updater(lambda v: v.move_to(diagrama.get_center() + np.array([0, -0.75, 0])))
-        cinco = Tex('$5$').set_color('GREEN').add_updater(lambda v: v.move_to(punto_cinco.get_center() + np.array([0, -0.33, 0])))
+        cinco = Tex('$5$').set_color('GREEN').add_updater(lambda v: v.move_to(punto_cinco.get_center() + np.array([-0.33, 0, 0])))
 
         self.play(Transform(titulo, diagrama_venn), Write(nuevo_a), Write(a_diagrama), Create(diagrama), Write(tres), Write(cuatro), Write(cinco), Create(punto_tres), Create(punto_cuatro), Create(punto_cinco), Unwrite(A), Unwrite(B), Unwrite(C), run_time = 1)
         self.wait(tiempo_entre_videos)
@@ -94,23 +94,78 @@ class conjuntos_numericos(Scene):
 
         B = Tex('$B = \{3, 4\}$').move_to(np.array([0, -1, 0])).set_color('YELLOW')
 
+        def move_to_center(v):
+            center = (punto_tres.get_center() + punto_cuatro.get_center()) / 2
+            v.move_to(center)
+
         diagrama_b = Ellipse(width = 2.75, height = 1.33).set_color('YELLOW')
-        diagrama_b.add_updater(lambda v: v.move_to((punto_tres.get_center() + punto_cuatro.get_center())/2))
+        diagrama_b.add_updater(move_to_center)
 
         self.play(inclusion_formal.animate.move_to(np.array([0, 3, 0])), Create(diagrama_b), Write(B), Unwrite(titulo), nuevo_a.animate.set_opacity(1), a_diagrama.animate.set_opacity(1), FadeIn(diagrama), tres.animate.set_opacity(1), cuatro.animate.set_opacity(1), cinco.animate.set_opacity(1), punto_tres.animate.set_opacity(1), punto_cuatro.animate.set_opacity(1), punto_cinco.animate.set_opacity(1), run_time = 1)
         self.wait(tiempo_entre_videos)
 
-        ##########?
+        ##########? Remarcamos la conclusión
 
-        # Hacer que se coloree en rojo la parte del texto inclusion_formal que se corresponde con la primera afirmación
-
-        recorte = inclusion_formal[0][0:15]
+        indice_a_recortar = 15
+        recorte = inclusion_formal[0][0:indice_a_recortar]
 
         remarcar = recorte.copy().set_color('RED')
 
         b_incluido_en_a = Tex('$\\Rightarrow B \subseteq A$').move_to(np.array([3.5, 0, 0]))
         box_b_incluido_en_a = SurroundingRectangle(b_incluido_en_a, buff = 0.1)
 
+        diagrama_b.remove_updater(move_to_center)
+
         self.play(Write(b_incluido_en_a), Create(box_b_incluido_en_a), Transform(recorte, remarcar), run_time = 1)
         self.wait(tiempo_entre_videos)
 
+        ##########? Mostrar ejemplo B no incluído en A
+
+        nuevo_b = Tex('$B = \{6, 5\}$').move_to(np.array([0, -1, 0])).set_color('YELLOW')
+
+        punto_seis = Dot().set_color('PURPLE').move_to(diagrama.get_center() + np.array([-2, -0.75, 0]))
+        seis = Tex('$6$').set_color('PURPLE').add_updater(lambda v: v.move_to(punto_seis.get_center() + np.array([-0.33, 0, 0])))
+
+        diagrama_b2 = Ellipse(width = 3.25, height = 1.30).set_color('YELLOW').move_to((punto_seis.get_center() + punto_cinco.get_center())/2)
+
+        print('ubicacion del diagrama:', diagrama_b2.get_center())
+
+        self.play(recorte.animate.set_color('WHITE'), Transform(B, nuevo_b), Transform(diagrama_b, diagrama_b2), Create(punto_seis), Write(seis), Uncreate(box_b_incluido_en_a), Unwrite(b_incluido_en_a), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Remarcamos la conclusión 2
+
+        recorte2 = inclusion_formal[0][indice_a_recortar+1:]
+
+        remarcar2 = recorte2.copy().set_color('RED')
+
+        b_no_incluido_en_a = Tex('$\\Rightarrow B \\nsubseteq A$').move_to(np.array([3.5, 0, 0]))
+        box_b_no_incluido_en_a = SurroundingRectangle(b_no_incluido_en_a, buff = 0.1)
+
+        self.play(Write(b_no_incluido_en_a), Create(box_b_no_incluido_en_a), Transform(recorte2, remarcar2), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Igualdad de conjuntos y ejemplo
+
+        en_cambio = Tex('Por otro lado, $A = B \\iff A \subseteq B$ y $B \subseteq A$').move_to(np.array([0, 2.1, 0]))
+
+        diagrama_b_futura = diagrama.copy().set_color('YELLOW')
+
+        nuevo_b2 = Tex('$B = \{3, 4, 5\}$').move_to(np.array([0, -1, 0])).set_color('YELLOW')
+
+        self.play(Write(en_cambio), Transform(diagrama_b, diagrama_b_futura), Transform(B, nuevo_b2), Uncreate(punto_seis), Unwrite(seis), Unwrite(recorte2), Unwrite(inclusion_formal), Unwrite(b_no_incluido_en_a), Uncreate(box_b_no_incluido_en_a), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Remarcamos la conclusión 3
+
+        recorte3 = en_cambio[0][12:]
+
+        remarcar3 = recorte3.copy().set_color('RED')
+
+        b_igual_a_a = Tex('$\\Rightarrow B = A$').move_to(np.array([3.6, 0, 0]))
+        box_b_igual_a_a = SurroundingRectangle(b_igual_a_a, buff = 0.1)
+
+        self.play(Write(b_no_incluido_en_a), Create(box_b_no_incluido_en_a), Transform(recorte3, remarcar3), Create(box_b_igual_a_a), Write(b_igual_a_a), run_time = 1)
+        self.wait(tiempo_entre_videos)
+
+        ##########? Definir "Conjunto referencial U" u mostrar distintas operaciones entre A y B (complemento de A, unión, intersección, diferencia y diferencia simétrica )
