@@ -1,6 +1,6 @@
 # Animaciones con Manim Community
 
-Bienvenido! En este repositorio dejaré el código base de varias animaciones matemáticas hechas con [Manim Community](https://docs.manim.community/en/stable/index.html).
+Bienvenido! En este repositorio dejaré el código base de varias animaciones matemáticas hechas con [Manim Community](https://docs.manim.community/en/stable/index.html). La mayoría de estos videos los subo a [mi canal de YouTube](https://www.youtube.com/channel/UCfgt4--XgLnHxYNDPOvYioA)
 
 Me falta aprender mucho de esta librería pero poco a poco voy a ir guardando acá algunas animaciones que se me vayan ocurriendo.
 
